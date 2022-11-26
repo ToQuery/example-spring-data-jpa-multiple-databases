@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -61,6 +62,7 @@ class ExampleSpringDataJpaMultipleDatabasesApplicationTests {
         assertFalse(userRepository.findById(user2.getId()).isPresent());
     }
 
+    @Rollback(value = false)
     @Test
     @Transactional("productTransactionManager")
     public void whenCreatingProduct_thenCreated() {

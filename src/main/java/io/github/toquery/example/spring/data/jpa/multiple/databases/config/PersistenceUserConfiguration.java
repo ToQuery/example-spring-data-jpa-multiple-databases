@@ -50,17 +50,17 @@ public class PersistenceUserConfiguration {
 
     @Primary
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasources.user")
+    @ConfigurationProperties(prefix = "spring.multiple-database.user")
     public DataSource userDataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Primary
     @Bean
-    public PlatformTransactionManager userTransactionManager() {
+    public PlatformTransactionManager userTransactionManager(LocalContainerEntityManagerFactoryBean userEntityManager) {
 
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(userEntityManager().getObject());
+        transactionManager.setEntityManagerFactory(userEntityManager.getObject());
         return transactionManager;
     }
 }

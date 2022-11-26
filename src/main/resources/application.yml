@@ -32,7 +32,10 @@ management:
       application: ${spring.application.name}
 
 spring:
-  datasources:
+  datasource:
+    hikari:
+      connection-test-query: select 1
+  multiple-database:
     user:
       driverClassName: com.mysql.cj.jdbc.Driver
       jdbcUrl: jdbc:mysql://${DB_MYSQL_HOST}:3306/multiple_database_user?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai

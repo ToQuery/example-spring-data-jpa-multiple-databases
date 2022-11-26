@@ -1,4 +1,4 @@
-package io.github.toquery.examplespringdatajpamultipledatabases;
+package io.github.toquery.example.spring.data.jpa.multiple.databases;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

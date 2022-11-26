@@ -1,0 +1,49 @@
+
+
+management:
+  server:
+    port: 8081
+
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+      show-details: always
+    info:
+      enabled: true
+
+  health:
+    livenessState: # ?? /actuator/health/liveness
+      enabled: true
+    readinessState: # ?? /actuator/health/readiness
+      enabled: true
+
+  metrics:
+    enable:
+      jvm: true
+    use-global-registry: false
+    tags:
+      application: ${spring.application.name}
+
+spring:
+  datasources:
+    user:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://${DB_MYSQL_HOST}:3306/multiple_database_user?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+      username: ${DB_MYSQL_USER}
+      password: ${DB_MYSQL_PASSWORD}
+    product:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://${DB_MYSQL_HOST}:3306/multiple_database_product?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+      username: ${DB_MYSQL_USER}
+      password: ${DB_MYSQL_PASSWORD}
+  jpa:
+    database: MYSQL
+    generate-ddl: true
+    show-sql: true

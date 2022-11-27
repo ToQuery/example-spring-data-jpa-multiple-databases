@@ -30,6 +30,14 @@ public class OrderService {
         return orderRepository.saveAndFlush(order);
     }
 
+    public Order save() {
+        Order order = new Order();
+        order.setOrderNo("1L");
+        order.setCreatedDate(LocalDateTime.now());
+        order.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
+        return this.save(order);
+    }
+
     public Order save(Order order) {
         return orderRepository.save(order);
     }
@@ -50,9 +58,9 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order update() {
-        Order order = orderRepository.getReferenceById(1);
-        order.setUpdateDate(LocalDateTime.now());
-        return orderRepository.saveAndFlush(order);
+    public List<Order> update() {
+        List<Order> orders = this.list();
+        orders.forEach(order -> order.setUpdateDate(LocalDateTime.now()));
+        return orderRepository.saveAllAndFlush(orders);
     }
 }

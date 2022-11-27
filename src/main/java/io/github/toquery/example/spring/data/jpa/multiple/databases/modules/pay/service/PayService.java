@@ -28,11 +28,17 @@ public class PayService {
         payRepository.saveAndFlush(pay);
         return pay;
     }
+    public Pay save() {
+        Pay pay = new Pay();
+        pay.setPayNo("test");
+        pay.setPayDate(LocalDateTime.now());
+        pay.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
+        return this.save(pay);
+    }
+
     public Pay save(Pay pay) {
         return payRepository.save(pay);
     }
-
-
 
     public Pay findById(Integer id) {
         return payRepository.findById(id).orElse(null);
@@ -49,9 +55,9 @@ public class PayService {
         return payRepository.findAll();
     }
 
-    public Pay update() {
-        Pay pay = payRepository.getReferenceById(1);
-        pay.setUpdateDate(LocalDateTime.now());
-        return payRepository.saveAndFlush(pay);
+    public List<Pay> update() {
+        List<Pay> pays = this.list();
+        pays.forEach(pay -> pay.setUpdateDate(LocalDateTime.now()));
+        return payRepository.saveAllAndFlush(pays);
     }
 }

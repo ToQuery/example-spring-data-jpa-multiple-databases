@@ -39,7 +39,7 @@ public class IndexController {
 
     @GetMapping(value = "/save")
     public ResultDTO save() {
-        return new ResultDTO(userService.init(), orderService.init(), productService.init(), payService.init());
+        return new ResultDTO(userService.save(), orderService.save(), productService.save(), payService.save());
     }
 
     @GetMapping(value = "/delete")
@@ -52,8 +52,8 @@ public class IndexController {
     }
 
     @GetMapping(value = "/update")
-    public ResultDTO update() {
-        return new ResultDTO(userService.update(), orderService.update(), productService.update(), payService.update());
+    public ResultListDTO update() {
+        return new ResultListDTO(userService.update(), orderService.update(), productService.update(), payService.update());
 
     }
 }

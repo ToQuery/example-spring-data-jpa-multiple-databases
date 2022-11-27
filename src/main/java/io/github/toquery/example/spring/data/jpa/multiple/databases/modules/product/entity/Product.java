@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +17,8 @@ import java.time.LocalDateTime;
  *
  */
 @Data
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "tb_product")
 public class Product {

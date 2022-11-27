@@ -34,6 +34,15 @@ public class UserService {
         return this.userRepository.saveAndFlush(user);
     }
 
+    public User save() {
+        User user = new User();
+        user.setName("toquery");
+        user.setEmail(UUID.randomUUID() + "@toquery.com");
+        user.setAge(11);
+        user.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
+        return this.save(user);
+    }
+
     public User save(User user) {
         return this.userRepository.save(user);
     }
@@ -55,9 +64,9 @@ public class UserService {
     }
 
 
-    public User update() {
-        User user = userRepository.getReferenceById(1);
-        user.setUpdateDate(LocalDateTime.now());
-        return userRepository.save(user);
+    public List<User> update() {
+        List<User> users = this.list();
+        users.forEach(user -> user.setUpdateDate(LocalDateTime.now()));
+        return userRepository.saveAllAndFlush(users);
     }
 }

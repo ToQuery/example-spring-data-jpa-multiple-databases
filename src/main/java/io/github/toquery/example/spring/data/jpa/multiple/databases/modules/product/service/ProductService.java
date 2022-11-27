@@ -28,11 +28,18 @@ public class ProductService {
         productRepository.saveAndFlush(product);
         return product;
     }
+
+    public Product save() {
+        Product product = new Product();
+        product.setName("test");
+        product.setPrice(12.3d);
+        product.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
+        return this.save(product);
+    }
+
     public Product save(Product product) {
         return productRepository.save(product);
     }
-
-
 
     public Product findById(Integer id) {
         return productRepository.findById(id).orElse(null);
@@ -50,9 +57,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product update() {
-        Product product = productRepository.getReferenceById(1);
-        product.setUpdateDate(LocalDateTime.now());
-        return productRepository.saveAndFlush(product);
+    public List<Product> update() {
+        List<Product> products = this.list();
+        products.forEach(product -> product.setUpdateDate(LocalDateTime.now()));
+        return productRepository.saveAllAndFlush(products);
     }
 }

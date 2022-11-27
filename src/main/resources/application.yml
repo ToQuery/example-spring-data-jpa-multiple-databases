@@ -32,7 +32,10 @@ management:
       application: ${spring.application.name}
 
 spring:
-  datasources:
+  datasource:
+    hikari:
+      connection-test-query: select 1
+  multiple-database:
     user:
       driverClassName: com.mysql.cj.jdbc.Driver
       jdbcUrl: jdbc:mysql://${DB_MYSQL_HOST}:3306/multiple_database_user?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
@@ -43,7 +46,16 @@ spring:
       jdbcUrl: jdbc:mysql://${DB_MYSQL_HOST}:3306/multiple_database_product?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
       username: ${DB_MYSQL_USER}
       password: ${DB_MYSQL_PASSWORD}
+    order:
+      driverClassName: org.postgresql.Driver
+      jdbcUrl: jdbc:postgresql://${DB_PG_HOST}:5432/multiple_database_order
+      username: ${DB_PG_USER}
+      password: ${DB_PG_PASSWORD}
+    pay:
+      driverClassName: org.postgresql.Driver
+      jdbcUrl: jdbc:postgresql://${DB_PG_HOST}:5432/multiple_database_pay
+      username: ${DB_PG_USER}
+      password: ${DB_PG_PASSWORD}
   jpa:
-    database: MYSQL
     generate-ddl: true
     show-sql: true

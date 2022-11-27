@@ -1,4 +1,4 @@
-package io.github.toquery.example.spring.data.jpa.multiple.databases.user.model;
+package io.github.toquery.example.spring.data.jpa.multiple.databases.modules.pay.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,22 +8,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  *
  */
 @Data
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "tb_pay")
+public class Pay {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    @Column(name = "pay_no")
+    private String payNo;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(name = "pay_date")
+    private LocalDateTime payDate;
 
-    private Integer age;
+
+    @Column(name = "update_date")
+    private LocalDateTime updateDate;
 }

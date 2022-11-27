@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Data
-@Transactional(transactionManager = "orderTransactionManager")
+@Transactional(transactionManager = "orderTransactionManager", rollbackFor = Exception.class)
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -39,7 +39,7 @@ public class OrderService {
     }
 
     public Order save(Order order) {
-        return orderRepository.save(order);
+        return orderRepository.saveAndFlush(order);
     }
     public Order findById(Integer id) {
         return orderRepository.findById(id).orElse(null);
@@ -62,5 +62,13 @@ public class OrderService {
         List<Order> orders = this.list();
         orders.forEach(order -> order.setUpdateDate(LocalDateTime.now()));
         return orderRepository.saveAllAndFlush(orders);
+    }
+
+    public List<Order> rollback(Boolean rollback) {
+        this.delete();
+        if (rollback) {
+            throw new RuntimeException("Rollback Order");
+        }
+        return this.list();
     }
 }

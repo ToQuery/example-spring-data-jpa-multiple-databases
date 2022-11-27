@@ -14,7 +14,7 @@ import java.util.List;
  *
  */
 @RequiredArgsConstructor
-@Transactional(transactionManager = "payTransactionManager")
+@Transactional(transactionManager = "payTransactionManager", rollbackFor = Exception.class)
 @Service
 public class PayService {
     private final PayRepository payRepository;
@@ -37,7 +37,7 @@ public class PayService {
     }
 
     public Pay save(Pay pay) {
-        return payRepository.save(pay);
+        return payRepository.saveAndFlush(pay);
     }
 
     public Pay findById(Integer id) {
@@ -59,5 +59,13 @@ public class PayService {
         List<Pay> pays = this.list();
         pays.forEach(pay -> pay.setUpdateDate(LocalDateTime.now()));
         return payRepository.saveAllAndFlush(pays);
+    }
+
+    public List<Pay> rollback(Boolean rollback) {
+        this.delete();
+        if (rollback) {
+            throw new RuntimeException("Rollback Pay");
+        }
+        return this.list();
     }
 }

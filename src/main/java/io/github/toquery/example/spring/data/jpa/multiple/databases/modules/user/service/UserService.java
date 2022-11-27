@@ -14,7 +14,7 @@ import java.util.UUID;
 /**
  *
  */
-@Transactional(transactionManager = "userTransactionManager")
+@Transactional(transactionManager = "userTransactionManager", rollbackFor = Exception.class)
 @Service
 public class UserService {
 
@@ -44,7 +44,7 @@ public class UserService {
     }
 
     public User save(User user) {
-        return this.userRepository.save(user);
+        return this.userRepository.saveAndFlush(user);
     }
 
     public List<User> list() {
@@ -68,5 +68,13 @@ public class UserService {
         List<User> users = this.list();
         users.forEach(user -> user.setUpdateDate(LocalDateTime.now()));
         return userRepository.saveAllAndFlush(users);
+    }
+
+    public List<User> rollback(Boolean rollback) {
+        this.delete();
+        if (rollback) {
+            throw new RuntimeException("Rollback User");
+        }
+        return this.list();
     }
 }

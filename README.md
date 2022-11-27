@@ -8,7 +8,7 @@ Base On Spring Boot 3.x.x
 - [X] generate-ddl
 - [X] jpa-multiple-databases
 - [X] rollback Transactional
-- [] Spring Native
+- [ ] Spring Native
 
 ## appendix
 

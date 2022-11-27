@@ -52,6 +52,7 @@ class ExampleSpringDataJpaMultipleDatabasesApplicationTests {
         user.setName("John");
         user.setEmail("john@test.com");
         user.setAge(20);
+        user.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
         user = userRepository.saveAndFlush(user);
 
         User dbUser = userRepository.findById(user.getId()).get();
@@ -66,6 +67,7 @@ class ExampleSpringDataJpaMultipleDatabasesApplicationTests {
         product.setId(2223);
         product.setName("Book");
         product.setPrice(20.d);
+        product.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
         product = productRepository.saveAndFlush(product);
 
         Product dbProduct = productRepository.findById(product.getId()).get();
@@ -82,6 +84,7 @@ class ExampleSpringDataJpaMultipleDatabasesApplicationTests {
         Order order = new Order();
         order.setOrderNo("Book");
         order.setCreatedDate(LocalDateTime.now());
+        order.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
         order = orderRepository.saveAndFlush(order);
 
         Order dbOrder = orderRepository.findById(order.getId()).get();
@@ -98,6 +101,7 @@ class ExampleSpringDataJpaMultipleDatabasesApplicationTests {
         pay.setId(2);
         pay.setPayNo("Book");
         pay.setPayDate(LocalDateTime.now());
+        pay.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
         pay = payRepository.saveAndFlush(pay);
 
         Pay dbPay = payRepository.findById(pay.getId()).get();
@@ -113,6 +117,7 @@ class ExampleSpringDataJpaMultipleDatabasesApplicationTests {
         user1.setName("John");
         user1.setEmail("john@test.com");
         user1.setAge(20);
+        user1.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
         user1 = userRepository.saveAndFlush(user1);
         assertNotNull(userRepository.findById(user1.getId()).get());
 
@@ -121,6 +126,7 @@ class ExampleSpringDataJpaMultipleDatabasesApplicationTests {
         user2.setName("Tom");
         user2.setEmail("john@test.com");
         user2.setAge(10);
+        user2.setUpdateDate(ExampleSpringDataJpaMultipleDatabasesApplication.INIT_DATE);
         try {
             user2 = userRepository.save(user2);
         } catch (DataIntegrityViolationException e) {
